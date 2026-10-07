@@ -21,8 +21,8 @@
 		]
 	},
 	"include": [
-		"src/image/**/*.ts",
-		"src/image/**/*.tsx"
+		"src/**/*.ts",
+		"src/**/*.tsx"
 	],
 	"exclude": [
 		"node_modules",
