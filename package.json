@@ -18,10 +18,10 @@
 		}
 	},
 	"exports": {
-		"./image/block": "./src/image/block.tsx",
-		"./image/block.tsx": "./src/image/block.tsx",
-		"./image/schema": "./src/image/schema.ts",
-		"./image/schema.ts": "./src/image/schema.ts",
-		"./image/styles.css": "./src/image/styles.css"
+		"./block": "./src/block.tsx",
+		"./block.tsx": "./src/block.tsx",
+		"./schema": "./src/schema.ts",
+		"./schema.ts": "./src/schema.ts",
+		"./styles.css": "./src/styles.css"
 	}
 }
