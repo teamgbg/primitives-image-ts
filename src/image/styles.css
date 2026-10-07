@@ -1,0 +1,28 @@
+/**
+ * @system core-blocks
+ * @status handwritten
+ * @edit edit directly
+ *
+ * Image block styles — sensible defaults so a bare image never overflows.
+ */
+
+.gui-image {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+.gui-image-link {
+	display: inline-block;
+	max-width: 100%;
+}
+
+/* In a flex container (e.g. a header brand bar), an img with `max-width:100%`
+   resolves that percentage against the flex item's INDEFINITE basis and collapses
+   to a few px — even with an explicit width/max-height. flex-shrink:0 gives the
+   image + its link wrap a definite flex basis (their content size) so the image
+   keeps its width. No-op outside flex (flex-shrink only applies to flex items). */
+.gui-image,
+.gui-image-link {
+	flex-shrink: 0;
+}
