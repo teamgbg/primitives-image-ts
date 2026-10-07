@@ -1,0 +1,27 @@
+{
+	"name": "@teamscala/image",
+	"_generated": {
+		"system": "image",
+		"status": "generated",
+		"edit": "edit src/ — dependencies and exports derive from imports; everything else preserved"
+	},
+	"dependencies": {
+		"@teamscala/ui-foundation": "*",
+		"valibot": "*"
+	},
+	"peerDependencies": {
+		"react": "*"
+	},
+	"peerDependenciesMeta": {
+		"react": {
+			"optional": true
+		}
+	},
+	"exports": {
+		"./image/block": "./src/image/block.tsx",
+		"./image/block.tsx": "./src/image/block.tsx",
+		"./image/schema": "./src/image/schema.ts",
+		"./image/schema.ts": "./src/image/schema.ts",
+		"./image/styles.css": "./src/image/styles.css"
+	}
+}
