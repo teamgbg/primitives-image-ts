@@ -22,10 +22,10 @@ let portalValue: { orgId?: string; websiteId?: string } | null = null;
 mock.module("@teamscala/ui-foundation/contexts/AppPortalContext", () => ({
 	useAppPortal: () => portalValue,
 }));
-mock.module("@teamscala/ui-foundation/theme/theme-context", () => ({
+mock.module("@teamscala/ui-theme/theme/theme-context", () => ({
 	useOptionalTheme: () => null,
 }));
-mock.module("@teamscala/ui-foundation/theme/resolve-mode-bound-logo", () => ({
+mock.module("@teamscala/ui-theme/theme/resolve-mode-bound-logo", () => ({
 	resolveModeBoundLogo: () => ({ src: "", variant: undefined }),
 }));
 

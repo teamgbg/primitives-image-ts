@@ -7,11 +7,12 @@
 
 import { useAppPortal } from "@teamscala/ui-foundation/contexts/AppPortalContext";
 import { useLiveDataSource } from "@teamscala/ui-foundation/contexts/LiveDataContext";
+import { getLivePath } from "@teamscala/ui-foundation/text/get-live-path";
 import { resolveLiveTextValue } from "@teamscala/ui-foundation/text/resolve-live-text-value";
-import { resolveModeBoundLogo } from "@teamscala/ui-foundation/theme/resolve-mode-bound-logo";
-import { useOptionalTheme } from "@teamscala/ui-foundation/theme/theme-context";
+import { resolveModeBoundLogo } from "@teamscala/ui-theme/theme/resolve-mode-bound-logo";
+import { useOptionalTheme } from "@teamscala/ui-theme/theme/theme-context";
 import { useState } from "react";
-import { buildStyle, type StyleKnobs } from "@teamscala/ui-foundation/styling-vocabulary/build-style";
+import { buildStyle } from "@teamscala/ui-foundation/styling-vocabulary/build-style";
 import type { ImageProps } from "./schema.ts";
 
 export type { ImageProps };
@@ -19,7 +20,7 @@ export type { ImageProps };
 export interface ImageBlockProps extends ImageProps {
 	puck?: { isEditing?: boolean };
 	/** Emphasis knob (clause #4): opacity on the image. */
-	emphasis?: StyleKnobs["emphasis"];
+	emphasis?: "full" | "strong" | "muted" | "subtle" | "faint" | "none";
 }
 
 // Transparent 1×1 placeholder swapped in when the real src fails to load
@@ -44,6 +45,7 @@ export function Image({
 	emphasis,
 	dataSource = "none",
 	fieldPath,
+	visibleWhenPath,
 }: ImageBlockProps) {
 	// Page-data binding for `src` — the unified vocabulary
 	// (`block-data-binding-is-unified`), identical to Text's. Lets a
@@ -57,6 +59,13 @@ export function Image({
 		dataSource && dataSource !== "none" && fieldPath
 			? resolveLiveTextValue(boundSnapshot, fieldPath)
 			: undefined;
+	const gatedAway =
+		!!visibleWhenPath &&
+		boundSnapshot != null &&
+		(() => {
+			const value = getLivePath(boundSnapshot, visibleWhenPath);
+			return value == null || (typeof value === "string" && !value.trim());
+		})();
 	// Brand logos carry both variants (injectLogos) so the portal's live theme
 	// toggle switches the logo client-side. Pick by the active theme; fall back
 	// to the SSR `src` on provider-less public surfaces (useOptionalTheme → null)
@@ -84,6 +93,7 @@ export function Image({
 	// resolved logo (e.g. a `source:"partner"` slot with no connected partner)
 	// collapses to nothing instead of a broken-image icon.
 	if (!effectiveSrc && !puck?.isEditing) return null;
+	if (gatedAway && !puck?.isEditing) return null;
 	const img = (
 		<span style={buildStyle({ emphasis })}>
 			<img
