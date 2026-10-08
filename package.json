@@ -8,7 +8,7 @@
 	},
 	"dependencies": {
 		"@teamscala/ui-foundation": "*",
-		"valibot": "*"
+		"@teamscala/ui-theme": "*"
 	},
 	"peerDependencies": {
 		"react": "*"
